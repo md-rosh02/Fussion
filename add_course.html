@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>Add New Course</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add New Course</h1>
+        <form id="add-course-form">
+            <div class="form_group">
+                <label for="title">Course Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form_group">
+                <label for="category">Category:</label>
+                <input type="text" id="category" name="category" required>
+            </div>
+            <div class="form_group">
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" required>
+            </div>
+            <div class="form_group">
+                <label for="oldPrice">Old Price (Optional):</label>
+                <input type="text" id="oldPrice" name="oldPrice">
+            </div>
+            <div class="form_group">
+                <label for="level">Level:</label>
+                <input type="text" id="level" name="level" required>
+            </div>
+            <div class="form_group">
+                <label for="duration">Duration:</label>
+                <input type="text" id="duration" name="duration" required>
+            </div>
+            <div class="form_group">
+                <label for="rating">Rating:</label>
+                <input type="text" id="rating" name="rating" required>
+            </div>
+            <div class="form_group">
+                <label for="image">Course Image URL:</label>
+                <input type="text" id="image" name="image" required>
+            </div>
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+    <script src="add_course.js"></script>
+</body>
+
+</html>
