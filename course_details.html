@@ -122,11 +122,15 @@
                                     quam quisque id. Mi eget mauris pharetra et ultrices neque. Natoque penatibus et
                                     magnis dis parturient montes nascetur.</p>
                                 <p>Elit ullamcorper dignissim cras tincidunt lobortis feugiat. Vitae sapien pellentesque
-                                    habitant morbi tristique senectus et netus.</p><a class="btn border_dark btn_small"
+                                    habitant morbi tristique senectus et netus.</p>
+                                                    <div id="container">
+                                                        <a class="btn border_dark btn_small"
                                     href="#!"><span><small><img src="assets/images/icon/icon_clip.svg"
                                                 alt="Collab – Online Learning Platform"> Resources</small> <small><img
                                                 src="assets/images/icon/icon_clip_white.svg"
                                                 alt="Collab – Online Learning Platform"> Resources</small></span></a>
+                                                        <button id="maamu" class="btn btn_dark" onclick="openQuizWindow()"><span style="height: 40px; width:80px; padding: 10px; font-family: 'Font Awesome 5 Pro'; font-weight:400; " >Try Quiz</span></button>
+                                                    </div>
                             </div>
                         </div>
                         <div class="col col-lg-4">
@@ -511,6 +515,12 @@
     </script>
     
     <script src="assets/js/script.js"></script>
+    <script>
+function openQuizWindow() {
+    // Open a new window with specified dimensions
+    window.open('quiz.html', 'QuizWindow', 'width=800,height=600,resizable=yes');
+}
+</script>
 </body>
 <!-- Mirrored from html.merku.love/collab/course_details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Nov 2024 08:25:56 GMT -->
 

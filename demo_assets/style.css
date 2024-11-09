@@ -354,6 +354,32 @@ hr {
   color: #ffffff;
 }
 
+.quiz_section{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+}
+
+#maamu{
+  border: 6px solid red;
+}
+
+#container{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid rgb(255, 0, 0);
+  justify-content: center;
+  width: 100%;
+}
+
+.btn_dark{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  height: 50px;
+}
+
+
 .btn_unfill {
   font-size: 18px;
   font-weight: 600;

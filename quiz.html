@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+
+        .start-btn {
+            padding: 12px 24px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .start-btn:hover {
+            background-color: #2563eb;
+        }
+
+        .quiz-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            opacity: 0;
+            animation: zoomIn 0.3s ease forwards;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-counter {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .option:hover {
+            background: #f3f4f6;
+        }
+
+        .last-question {
+            color: #f97316;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .score-container {
+            text-align: center;
+        }
+
+        .score-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .score-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .retry-btn {
+            padding: 12px 24px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .goback-btn{
+            padding: 12px 24px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <button class="start-btn" onclick="startQuiz()">Start Python Quiz</button>
+    <div class="overlay" id="overlay"></div>
+    <div class="quiz-container" id="quizContainer">
+        <div id="questionContent">
+            <div class="quiz-header">
+                <div class="question-counter" id="questionCounter"></div>
+            </div>
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <div class="last-question" id="lastQuestion"></div>
+        </div>
+        <div id="scoreContent" style="display: none;" class="score-container">
+            <div class="score-title">Quiz Complete!</div>
+            <div class="score-text" id="scoreText"></div>
+            <button class="retry-btn" onclick="resetQuiz()">Try Again</button>
+        </div>
+    </div>
+    <div id="scoreContent" style="display: none;" class="score-container">
+        <div class="score-title">Quiz Complete!</div>
+        <div class="score-text" id="scoreText"></div>
+        <button class="retry-btn" onclick="resetQuiz()">Try Again</button>
+        <button class="goback-btn" onclick="goBack()">Go Back</button>
+    </div>
+    
+
+    <script>
+        const questions = [
+            {
+                question: "What is the correct way to create a list in Python?",
+                options: [
+                    "array(1, 2, 3)",
+                    "[1, 2, 3]",
+                    "list(1, 2, 3)",
+                    "array[1, 2, 3]"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which of these is a valid Python comment?",
+                options: [
+                    "// This is a comment",
+                    "/* This is a comment */",
+                    "# This is a comment",
+                    "<!-- This is a comment -->"
+                ],
+                correct: 2
+            },
+            {
+                question: "What is the output of print(2 ** 3)?",
+                options: ["6", "8", "9", "16"],
+                correct: 1
+            },
+            {
+                question: "How do you check the length of a list named 'mylist'?",
+                options: [
+                    "mylist.length()",
+                    "len(mylist)",
+                    "mylist.size()",
+                    "sizeof(mylist)"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which method adds an element to the end of a list?",
+                options: ["push()", "add()", "append()", "insert()"],
+                correct: 2
+            },
+            {
+                question: "What is the correct file extension for Python files?",
+                options: [".pyt", ".pt", ".py", ".python"],
+                correct: 2
+            },
+            {
+                question: "How do you create a function in Python?",
+                options: [
+                    "function myFunction():",
+                    "def myFunction():",
+                    "create myFunction():",
+                    "new myFunction():"
+                ],
+                correct: 1
+            },
+            {
+                question: "What is the correct way to import a module named 'math'?",
+                options: [
+                    "import math",
+                    "include math",
+                    "using math",
+                    "require math"
+                ],
+                correct: 0
+            },
+            {
+                question: "Which operator is used for string concatenation in Python?",
+                options: ["&", "+", ".", ","],
+                correct: 1
+            },
+            {
+                question: "How do you start a while loop in Python?",
+                options: [
+                    "while (x > y) {",
+                    "while x > y:",
+                    "while (x > y)",
+                    "while: x > y"
+                ],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startQuiz() {
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('quizContainer').style.display = 'block';
+    document.getElementById('scoreContent').style.display = 'none'; // Hide score if restarting
+    document.getElementById('questionContent').style.display = 'block';
+    showQuestion();
+}
+
+function showQuestion() {
+    const questionData = questions[currentQuestion];
+    document.getElementById('questionCounter').textContent = 
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+    document.getElementById('question').textContent = questionData.question;
+
+    const optionsContainer = document.getElementById('options');
+    optionsContainer.innerHTML = '';
+
+    questionData.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'option';
+        button.textContent = option;
+        button.onclick = () => handleAnswer(index);
+        optionsContainer.appendChild(button);
+    });
+
+    document.getElementById('lastQuestion').textContent = 
+        currentQuestion === questions.length - 1 ? 'This is the last question!' : '';
+}
+
+function handleAnswer(selectedOption) {
+    if (selectedOption === questions[currentQuestion].correct) {
+        score++;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showScore();
+    }
+}
+
+function showScore() {
+    document.getElementById('questionContent').style.display = 'none';
+    document.getElementById('scoreContent').style.display = 'block';
+    document.getElementById('scoreText').textContent = 
+        `You scored ${score} out of ${questions.length}`;
+}
+
+function resetQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    document.getElementById('questionContent').style.display = 'block';
+    document.getElementById('scoreContent').style.display = 'none';
+    showQuestion();
+}
+
+function goBack() {
+    document.getElementById('quizContainer').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
+
+    </script>
+</body>
+</html>
